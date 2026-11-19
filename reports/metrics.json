@@ -1,0 +1,153 @@
+{
+  "winner": "logistic_regression",
+  "winner_f1_macro": 0.8667,
+  "dataset_size": 40,
+  "train_size": 32,
+  "test_size": 8,
+  "classes": [
+    "admisiones",
+    "becas",
+    "costos",
+    "servicios_escolares"
+  ],
+  "models": {
+    "logistic_regression": {
+      "accuracy": 0.875,
+      "precision_macro": 0.9167,
+      "recall_macro": 0.875,
+      "f1_macro": 0.8667,
+      "confusion_matrix_path": "reports/confusion_matrix_logistic_regression.png",
+      "classification_report": {
+        "admisiones": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1-score": 0.8,
+          "support": 2.0
+        },
+        "becas": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "costos": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1-score": 0.6666666666666666,
+          "support": 2.0
+        },
+        "servicios_escolares": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "accuracy": 0.875,
+        "macro avg": {
+          "precision": 0.9166666666666666,
+          "recall": 0.875,
+          "f1-score": 0.8666666666666667,
+          "support": 8.0
+        },
+        "weighted avg": {
+          "precision": 0.9166666666666666,
+          "recall": 0.875,
+          "f1-score": 0.8666666666666667,
+          "support": 8.0
+        }
+      }
+    },
+    "linear_svc_calibrated": {
+      "accuracy": 0.875,
+      "precision_macro": 0.9167,
+      "recall_macro": 0.875,
+      "f1_macro": 0.8667,
+      "confusion_matrix_path": "reports/confusion_matrix_linear_svc_calibrated.png",
+      "classification_report": {
+        "admisiones": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1-score": 0.8,
+          "support": 2.0
+        },
+        "becas": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "costos": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1-score": 0.6666666666666666,
+          "support": 2.0
+        },
+        "servicios_escolares": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "accuracy": 0.875,
+        "macro avg": {
+          "precision": 0.9166666666666666,
+          "recall": 0.875,
+          "f1-score": 0.8666666666666667,
+          "support": 8.0
+        },
+        "weighted avg": {
+          "precision": 0.9166666666666666,
+          "recall": 0.875,
+          "f1-score": 0.8666666666666667,
+          "support": 8.0
+        }
+      }
+    },
+    "multinomial_nb": {
+      "accuracy": 0.75,
+      "precision_macro": 0.7917,
+      "recall_macro": 0.75,
+      "f1_macro": 0.7417,
+      "confusion_matrix_path": "reports/confusion_matrix_multinomial_nb.png",
+      "classification_report": {
+        "admisiones": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1-score": 0.8,
+          "support": 2.0
+        },
+        "becas": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "costos": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1-score": 0.5,
+          "support": 2.0
+        },
+        "servicios_escolares": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1-score": 0.6666666666666666,
+          "support": 2.0
+        },
+        "accuracy": 0.75,
+        "macro avg": {
+          "precision": 0.7916666666666666,
+          "recall": 0.75,
+          "f1-score": 0.7416666666666666,
+          "support": 8.0
+        },
+        "weighted avg": {
+          "precision": 0.7916666666666666,
+          "recall": 0.75,
+          "f1-score": 0.7416666666666666,
+          "support": 8.0
+        }
+      }
+    }
+  }
+}
