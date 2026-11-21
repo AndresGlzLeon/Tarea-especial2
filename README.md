@@ -7,15 +7,20 @@ Sistema local de clasificación y recuperación de preguntas frecuentes (FAQ) pa
 ```text
 chatbot-upq/
 ├── data/
-│   ├── corpus_upq.csv        # Corpus etiquetado (pregunta, intencion)
-│   └── respuestas_upq.json   # Respuestas oficiales por intención y _fallback
+│   └── corpus_upq.csv                    # Corpus etiquetado (texto, intencion, respuesta_oficial)
+├── docs/
+│   ├── CONTRATOS.md                      # Acuerdos técnicos e interfaces entre módulos
+│   └── CRONOGRAMA.md                     # Plan de trabajo, hitos y responsables del equipo
+├── models/
+│   ├── modelo.pkl                        # Clasificador ganador serializado
+│   └── vectorizador.pkl                  # Vectorizador TF-IDF entrenado sobre train
+├── notebooks/
+│   └── entrenamiento_evaluacion.ipynb    # Notebook de entrenamiento, evaluación y exportación
+├── reports/                              # Matrices de confusión (.png) y metrics.json
 ├── src/
 │   ├── __init__.py
-│   ├── preprocess.py         # Normalización y limpieza de texto
-│   └── train.py              # Entrenamiento, evaluación y selección del modelo
-├── models/                   # Modelo ganador serializado (.joblib)
-├── reports/                  # Matrices de confusión (.png) y metrics.json
-├── app.py                    # Aplicación web interactiva en Streamlit
+│   └── preprocess.py                     # Normalización y limpieza de texto (limpiar_texto)
+├── app.py                                # Aplicación web interactiva en Streamlit
 ├── requirements.txt
 └── README.md
 ```
@@ -42,13 +47,21 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 3. Entrenar y evaluar los modelos
+### 3. Entrenar y evaluar los modelos en Jupyter Notebook
+
+Abre y ejecuta todas las celdas del notebook `notebooks/entrenamiento_evaluacion.ipynb`:
 
 ```bash
-python src/train.py
+jupyter notebook notebooks/entrenamiento_evaluacion.ipynb
 ```
 
-Este comando entrenará 3 clasificadores (`LogisticRegression`, `CalibratedClassifierCV(LinearSVC)` y `MultinomialNB`), generará las matrices de confusión y `reports/metrics.json`, y guardará el modelo ganador en `models/modelo_upq.joblib`.
+El notebook realiza:
+- Carga de `data/corpus_upq.csv` (`texto,intencion,respuesta_oficial`).
+- Limpieza de texto importando `limpiar_texto` desde `src/preprocess.py`.
+- Partición estratificada 80/20 (`train_test_split` con `stratify=y`).
+- Ajuste de `TfidfVectorizer` únicamente sobre el conjunto de entrenamiento.
+- Comparativa entre `LogisticRegression`, `CalibratedClassifierCV(LinearSVC)` y `MultinomialNB` mediante matrices de confusión y `F1-score macro`.
+- Exportación por separado de `models/vectorizador.pkl` y `models/modelo.pkl` usando `joblib.dump`.
 
 ### 4. Iniciar la aplicación de chat
 
@@ -56,3 +69,7 @@ Este comando entrenará 3 clasificadores (`LogisticRegression`, `CalibratedClass
 streamlit run app.py
 ```
 
+## Documentación del equipo
+
+- [Contratos técnicos (`docs/CONTRATOS.md`)](docs/CONTRATOS.md)
+- [Cronograma de trabajo (`docs/CRONOGRAMA.md`)](docs/CRONOGRAMA.md)

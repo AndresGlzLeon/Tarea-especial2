@@ -2,18 +2,26 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import joblib
 import numpy as np
+import pandas as pd
 import streamlit as st
 
 from src.preprocess import limpiar_texto
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "models" / "modelo_upq.joblib"
-RESPONSES_PATH = BASE_DIR / "data" / "respuestas_upq.json"
+MODEL_PATH = BASE_DIR / "models" / "modelo.pkl"
+VECTORIZER_PATH = BASE_DIR / "models" / "vectorizador.pkl"
+CORPUS_PATH = BASE_DIR / "data" / "corpus_upq.csv"
+
+FALLBACK_MESSAGE = (
+    "Lo siento, no estoy seguro de haber entendido tu consulta. "
+    "Por favor intenta reformular tu pregunta sobre admisiones, becas, costos "
+    "o servicios escolares de la UPQ, o comunícate directamente con los canales "
+    "oficiales de la universidad."
+)
 
 st.set_page_config(
     page_title="Chatbot FAQ - UPQ",
@@ -23,33 +31,51 @@ st.set_page_config(
 
 
 @st.cache_resource
-def cargar_modelo(ruta: Path):
-    return joblib.load(ruta)
+def cargar_artefactos(ruta_modelo: Path, ruta_vectorizador: Path):
+    """Carga el clasificador entrenado y el vectorizador TF-IDF."""
+    modelo = joblib.load(ruta_modelo)
+    vectorizador = joblib.load(ruta_vectorizador)
+    return modelo, vectorizador
 
 
 @st.cache_data
-def cargar_respuestas(ruta: Path) -> dict[str, str]:
-    with ruta.open("r", encoding="utf-8") as archivo:
-        return json.load(archivo)
+def cargar_respuestas(ruta_csv: Path) -> dict[str, str]:
+    """Construye el diccionario {intencion: respuesta_oficial} leyendo data/corpus_upq.csv."""
+    df = pd.read_csv(ruta_csv, encoding="utf-8")
+    columnas_requeridas = {"intencion", "respuesta_oficial"}
+    if not columnas_requeridas.issubset(df.columns):
+        raise ValueError(
+            "El archivo data/corpus_upq.csv debe contener las columnas 'intencion' y 'respuesta_oficial'."
+        )
+    df_unico = df.dropna(subset=["intencion", "respuesta_oficial"]).drop_duplicates(
+        subset=["intencion"]
+    )
+    respuestas = dict(
+        zip(
+            df_unico["intencion"].astype(str),
+            df_unico["respuesta_oficial"].astype(str),
+        )
+    )
+    respuestas["_fallback"] = FALLBACK_MESSAGE
+    return respuestas
 
 
 def responder_consulta(
     consulta: str,
     modelo,
+    vectorizador,
     respuestas: dict[str, str],
     umbral: float,
 ) -> tuple[str, str, float, bool]:
     """Clasifica la consulta y devuelve respuesta, intención, confianza y bandera de fallback."""
     texto_limpio = limpiar_texto(consulta)
-    fallback = respuestas.get(
-        "_fallback",
-        "Lo siento, no pude entender tu pregunta. Intenta reformularla.",
-    )
+    fallback = respuestas.get("_fallback", FALLBACK_MESSAGE)
 
     if not texto_limpio:
         return fallback, "ninguna", 0.0, True
 
-    probabilidades = modelo.predict_proba([texto_limpio])[0]
+    X_vectorizado = vectorizador.transform([texto_limpio])
+    probabilidades = modelo.predict_proba(X_vectorizado)[0]
     indice_max = int(np.argmax(probabilidades))
     confianza = float(probabilidades[indice_max])
     intencion = str(modelo.classes_[indice_max])
@@ -86,22 +112,21 @@ def main() -> None:
             st.session_state.messages = []
             st.rerun()
 
-    if not MODEL_PATH.exists():
+    if not MODEL_PATH.exists() or not VECTORIZER_PATH.exists():
         st.warning(
-            "Aún no existe un modelo entrenado (`models/modelo_upq.joblib`). "
-            "Ejecuta primero el script de entrenamiento desde la raíz del proyecto:\n\n"
-            "```bash\npython src/train.py\n```"
+            "Aún no existen los artefactos entrenados (`models/modelo.pkl` y `models/vectorizador.pkl`). "
+            "Ejecuta primero el notebook `notebooks/entrenamiento_evaluacion.ipynb` para generarlos."
         )
         st.stop()
 
-    if not RESPONSES_PATH.exists():
+    if not CORPUS_PATH.exists():
         st.error(
-            f"No se encontró el archivo de respuestas en `{RESPONSES_PATH.name}`."
+            f"No se encontró el corpus en `{CORPUS_PATH.relative_to(BASE_DIR)}`."
         )
         st.stop()
 
-    modelo = cargar_modelo(MODEL_PATH)
-    respuestas = cargar_respuestas(RESPONSES_PATH)
+    modelo, vectorizador = cargar_artefactos(MODEL_PATH, VECTORIZER_PATH)
+    respuestas = cargar_respuestas(CORPUS_PATH)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -124,7 +149,7 @@ def main() -> None:
             st.markdown(prompt)
 
         respuesta, intencion, confianza, es_fallback = responder_consulta(
-            prompt, modelo, respuestas, umbral_confianza
+            prompt, modelo, vectorizador, respuestas, umbral_confianza
         )
 
         st.session_state.messages.append(
@@ -148,4 +173,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
