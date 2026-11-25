@@ -8,7 +8,6 @@ Este documento establece la planificación, fases, entregables y acuerdos operat
 
 | Rol | Responsabilidad Principal | Entregables Clave |
 | :--- | :--- | :--- |
-| **Ingeniería de Datos y Corpus** | Recolección, curaduría, etiquetado y validación de preguntas y respuestas oficiales de la UPQ. | `data/corpus_upq.csv` (`texto,intencion,respuesta_oficial`) |
 | **Procesamiento de Lenguaje Natural (NLP)** | Diseño e implementación de la función de limpieza y normalización de texto en español. | `src/preprocess.py` (`limpiar_texto`) |
 | **Machine Learning y Evaluación** | Experimentación supervisada, ajuste TF-IDF en train, comparativa de modelos y exportación de artefactos. | `notebooks/entrenamiento_evaluacion.ipynb`, `models/vectorizador.pkl`, `models/modelo.pkl`, `reports/` |
 | **Desarrollo de Interfaz e Integración** | Construcción de la interfaz conversacional en Streamlit, control de umbral de confianza y documentación. | `app.py`, `README.md`, `docs/CONTRATOS.md`, `docs/CRONOGRAMA.md` |
