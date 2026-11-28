@@ -30,7 +30,7 @@ INTENCIONES_VALIDAS = {
 }
 SNAKE_CASE_REGEX = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 MIN_VARIANTES_POR_INTENCION = 20
-TARGET_VARIANTES_POR_INTENCION = 25
+TARGET_VARIANTES_POR_INTENCION = 54
 
 
 def validar_corpus(ruta_csv: Path = CORPUS_PATH) -> bool:

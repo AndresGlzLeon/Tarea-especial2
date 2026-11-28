@@ -1,153 +1,398 @@
 {
-  "winner": "logistic_regression",
-  "winner_f1_macro": 0.8667,
-  "dataset_size": 40,
-  "train_size": 32,
-  "test_size": 8,
+  "winner": "linear_svc_calibrated",
+  "winner_f1_macro_test": 0.8167,
+  "winner_f1_macro_cv": 0.8124,
+  "umbral_fallback_calibrado": 0.46,
+  "dataset_size": 810,
+  "train_size": 648,
+  "test_size": 162,
   "classes": [
+    "actividades_extracurriculares",
     "admisiones",
     "becas",
-    "costos",
-    "servicios_escolares"
+    "biblioteca_instalaciones",
+    "calendario_horarios",
+    "contacto_directorio",
+    "costos_pagos",
+    "estancias_estadias",
+    "idiomas_ingles",
+    "oferta_educativa",
+    "plataforma_sistemas",
+    "servicio_social",
+    "servicios_escolares",
+    "titulacion",
+    "ubicacion_transporte"
   ],
+  "num_classes": 15,
   "models": {
     "logistic_regression": {
-      "accuracy": 0.875,
-      "precision_macro": 0.9167,
-      "recall_macro": 0.875,
-      "f1_macro": 0.8667,
+      "accuracy": 0.8148,
+      "precision_macro": 0.8306,
+      "recall_macro": 0.8152,
+      "f1_macro": 0.8157,
+      "errores_test": 30,
+      "total_test": 162,
       "confusion_matrix_path": "reports/confusion_matrix_logistic_regression.png",
       "classification_report": {
+        "actividades_extracurriculares": {
+          "precision": 0.875,
+          "recall": 0.7,
+          "f1-score": 0.7777777777777778,
+          "support": 10.0
+        },
         "admisiones": {
-          "precision": 0.6666666666666666,
-          "recall": 1.0,
-          "f1-score": 0.8,
-          "support": 2.0
+          "precision": 0.7,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.6666666666666666,
+          "support": 11.0
         },
         "becas": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8695652173913043,
+          "support": 11.0
+        },
+        "biblioteca_instalaciones": {
+          "precision": 1.0,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.8421052631578947,
+          "support": 11.0
+        },
+        "calendario_horarios": {
+          "precision": 0.6923076923076923,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.75,
+          "support": 11.0
+        },
+        "contacto_directorio": {
+          "precision": 0.875,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.7368421052631579,
+          "support": 11.0
+        },
+        "costos_pagos": {
+          "precision": 0.8888888888888888,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.8,
+          "support": 11.0
+        },
+        "estancias_estadias": {
+          "precision": 1.0,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.9,
+          "support": 11.0
+        },
+        "idiomas_ingles": {
+          "precision": 0.8461538461538461,
+          "recall": 1.0,
+          "f1-score": 0.9166666666666666,
+          "support": 11.0
+        },
+        "oferta_educativa": {
+          "precision": 0.7272727272727273,
+          "recall": 0.8,
+          "f1-score": 0.7619047619047619,
+          "support": 10.0
+        },
+        "plataforma_sistemas": {
+          "precision": 0.7692307692307693,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8333333333333334,
+          "support": 11.0
+        },
+        "servicio_social": {
           "precision": 1.0,
           "recall": 1.0,
           "f1-score": 1.0,
-          "support": 2.0
-        },
-        "costos": {
-          "precision": 1.0,
-          "recall": 0.5,
-          "f1-score": 0.6666666666666666,
-          "support": 2.0
+          "support": 10.0
         },
         "servicios_escolares": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1-score": 1.0,
-          "support": 2.0
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8695652173913043,
+          "support": 11.0
         },
-        "accuracy": 0.875,
+        "titulacion": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.8181818181818182,
+          "support": 11.0
+        },
+        "ubicacion_transporte": {
+          "precision": 0.6,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.6923076923076923,
+          "support": 11.0
+        },
+        "accuracy": 0.8148148148148148,
         "macro avg": {
-          "precision": 0.9166666666666666,
-          "recall": 0.875,
-          "f1-score": 0.8666666666666667,
-          "support": 8.0
+          "precision": 0.8305801605801606,
+          "recall": 0.8151515151515151,
+          "f1-score": 0.8156611013361587,
+          "support": 162.0
         },
         "weighted avg": {
-          "precision": 0.9166666666666666,
-          "recall": 0.875,
-          "f1-score": 0.8666666666666667,
-          "support": 8.0
+          "precision": 0.8298978627682331,
+          "recall": 0.8148148148148148,
+          "f1-score": 0.8150888838319976,
+          "support": 162.0
         }
-      }
+      },
+      "f1_macro_cv_mean": 0.8013,
+      "f1_macro_cv_std": 0.0261,
+      "f1_macro_cv_folds": [
+        0.8074,
+        0.7995,
+        0.8313,
+        0.7536,
+        0.8148
+      ]
     },
     "linear_svc_calibrated": {
-      "accuracy": 0.875,
-      "precision_macro": 0.9167,
-      "recall_macro": 0.875,
-      "f1_macro": 0.8667,
+      "accuracy": 0.8148,
+      "precision_macro": 0.829,
+      "recall_macro": 0.8164,
+      "f1_macro": 0.8167,
+      "errores_test": 30,
+      "total_test": 162,
       "confusion_matrix_path": "reports/confusion_matrix_linear_svc_calibrated.png",
       "classification_report": {
-        "admisiones": {
-          "precision": 0.6666666666666666,
-          "recall": 1.0,
+        "actividades_extracurriculares": {
+          "precision": 0.8,
+          "recall": 0.8,
           "f1-score": 0.8,
-          "support": 2.0
+          "support": 10.0
+        },
+        "admisiones": {
+          "precision": 0.7,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.6666666666666666,
+          "support": 11.0
         },
         "becas": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.9090909090909091,
+          "support": 11.0
+        },
+        "biblioteca_instalaciones": {
+          "precision": 1.0,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.7777777777777778,
+          "support": 11.0
+        },
+        "calendario_horarios": {
+          "precision": 0.6428571428571429,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.72,
+          "support": 11.0
+        },
+        "contacto_directorio": {
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.7272727272727273,
+          "support": 11.0
+        },
+        "costos_pagos": {
+          "precision": 0.8888888888888888,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.8,
+          "support": 11.0
+        },
+        "estancias_estadias": {
+          "precision": 1.0,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.9,
+          "support": 11.0
+        },
+        "idiomas_ingles": {
+          "precision": 0.8461538461538461,
+          "recall": 1.0,
+          "f1-score": 0.9166666666666666,
+          "support": 11.0
+        },
+        "oferta_educativa": {
+          "precision": 0.8181818181818182,
+          "recall": 0.9,
+          "f1-score": 0.8571428571428571,
+          "support": 10.0
+        },
+        "plataforma_sistemas": {
+          "precision": 0.6923076923076923,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.75,
+          "support": 11.0
+        },
+        "servicio_social": {
           "precision": 1.0,
           "recall": 1.0,
           "f1-score": 1.0,
-          "support": 2.0
-        },
-        "costos": {
-          "precision": 1.0,
-          "recall": 0.5,
-          "f1-score": 0.6666666666666666,
-          "support": 2.0
+          "support": 10.0
         },
         "servicios_escolares": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1-score": 1.0,
-          "support": 2.0
+          "precision": 0.9,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.8571428571428571,
+          "support": 11.0
         },
-        "accuracy": 0.875,
+        "titulacion": {
+          "precision": 0.8181818181818182,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.8181818181818182,
+          "support": 11.0
+        },
+        "ubicacion_transporte": {
+          "precision": 0.6923076923076923,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.75,
+          "support": 11.0
+        },
+        "accuracy": 0.8148148148148148,
         "macro avg": {
-          "precision": 0.9166666666666666,
-          "recall": 0.875,
-          "f1-score": 0.8666666666666667,
-          "support": 8.0
+          "precision": 0.8290161690161689,
+          "recall": 0.8163636363636364,
+          "f1-score": 0.8166628186628188,
+          "support": 162.0
         },
         "weighted avg": {
-          "precision": 0.9166666666666666,
-          "recall": 0.875,
-          "f1-score": 0.8666666666666667,
-          "support": 8.0
+          "precision": 0.8282067041326302,
+          "recall": 0.8148148148148148,
+          "f1-score": 0.8153840877914953,
+          "support": 162.0
         }
-      }
+      },
+      "f1_macro_cv_mean": 0.8124,
+      "f1_macro_cv_std": 0.017,
+      "f1_macro_cv_folds": [
+        0.8085,
+        0.8081,
+        0.8419,
+        0.7892,
+        0.8142
+      ]
     },
     "multinomial_nb": {
-      "accuracy": 0.75,
-      "precision_macro": 0.7917,
-      "recall_macro": 0.75,
-      "f1_macro": 0.7417,
+      "accuracy": 0.8086,
+      "precision_macro": 0.8288,
+      "recall_macro": 0.8091,
+      "f1_macro": 0.8089,
+      "errores_test": 31,
+      "total_test": 162,
       "confusion_matrix_path": "reports/confusion_matrix_multinomial_nb.png",
       "classification_report": {
+        "actividades_extracurriculares": {
+          "precision": 1.0,
+          "recall": 0.7,
+          "f1-score": 0.8235294117647058,
+          "support": 10.0
+        },
         "admisiones": {
-          "precision": 0.6666666666666666,
-          "recall": 1.0,
-          "f1-score": 0.8,
-          "support": 2.0
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.7272727272727273,
+          "support": 11.0
         },
         "becas": {
-          "precision": 1.0,
-          "recall": 1.0,
-          "f1-score": 1.0,
-          "support": 2.0
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8695652173913043,
+          "support": 11.0
         },
-        "costos": {
-          "precision": 0.5,
-          "recall": 0.5,
-          "f1-score": 0.5,
-          "support": 2.0
+        "biblioteca_instalaciones": {
+          "precision": 1.0,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.7777777777777778,
+          "support": 11.0
+        },
+        "calendario_horarios": {
+          "precision": 0.6923076923076923,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.75,
+          "support": 11.0
+        },
+        "contacto_directorio": {
+          "precision": 0.875,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.7368421052631579,
+          "support": 11.0
+        },
+        "costos_pagos": {
+          "precision": 0.8888888888888888,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.8,
+          "support": 11.0
+        },
+        "estancias_estadias": {
+          "precision": 1.0,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.9,
+          "support": 11.0
+        },
+        "idiomas_ingles": {
+          "precision": 0.7333333333333333,
+          "recall": 1.0,
+          "f1-score": 0.8461538461538461,
+          "support": 11.0
+        },
+        "oferta_educativa": {
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1-score": 0.8,
+          "support": 10.0
+        },
+        "plataforma_sistemas": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8695652173913043,
+          "support": 11.0
+        },
+        "servicio_social": {
+          "precision": 0.9090909090909091,
+          "recall": 1.0,
+          "f1-score": 0.9523809523809523,
+          "support": 10.0
         },
         "servicios_escolares": {
-          "precision": 1.0,
-          "recall": 0.5,
-          "f1-score": 0.6666666666666666,
-          "support": 2.0
+          "precision": 0.7692307692307693,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.8333333333333334,
+          "support": 11.0
         },
-        "accuracy": 0.75,
+        "titulacion": {
+          "precision": 0.7272727272727273,
+          "recall": 0.7272727272727273,
+          "f1-score": 0.7272727272727273,
+          "support": 11.0
+        },
+        "ubicacion_transporte": {
+          "precision": 0.6428571428571429,
+          "recall": 0.8181818181818182,
+          "f1-score": 0.72,
+          "support": 11.0
+        },
+        "accuracy": 0.808641975308642,
         "macro avg": {
-          "precision": 0.7916666666666666,
-          "recall": 0.75,
-          "f1-score": 0.7416666666666666,
-          "support": 8.0
+          "precision": 0.8287947237947237,
+          "recall": 0.809090909090909,
+          "f1-score": 0.8089128877334558,
+          "support": 162.0
         },
         "weighted avg": {
-          "precision": 0.7916666666666666,
-          "recall": 0.75,
-          "f1-score": 0.7416666666666666,
-          "support": 8.0
+          "precision": 0.827419990845917,
+          "recall": 0.808641975308642,
+          "f1-score": 0.8079920747646577,
+          "support": 162.0
         }
-      }
+      },
+      "f1_macro_cv_mean": 0.7792,
+      "f1_macro_cv_std": 0.0198,
+      "f1_macro_cv_folds": [
+        0.7947,
+        0.7662,
+        0.7992,
+        0.7468,
+        0.7891
+      ]
     }
   }
 }

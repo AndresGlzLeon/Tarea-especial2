@@ -12,18 +12,18 @@ Chatbot local para responder preguntas frecuentes de la Universidad Politécnica
 
 ## Cómo funciona
 
-- **Corpus (`data/corpus_upq.csv`):** 375 preguntas distribuidas en 15 intenciones (25 por clase), con columnas `texto`, `intencion` y `respuesta_oficial`.
+- **Corpus (`data/corpus_upq.csv`):** 810 preguntas distribuidas en 15 intenciones (54 por clase), con columnas `texto`, `intencion` y `respuesta_oficial`.
 - **Preprocesamiento (`src/preprocess.py`):** `limpiar_texto` pasa a minúsculas, quita acentos y signos de puntuación, y normaliza espacios.
-- **Entrenamiento (`notebooks/entrenamiento_evaluacion.ipynb`):** Partición estratificada 80/20 (`random_state=42`), `TfidfVectorizer(ngram_range=(1, 2))` ajustado solo en entrenamiento y validación cruzada de 5 pliegues.
-- **Interfaz (`app.py`):** Carga `models/vectorizador.pkl` y `models/modelo.pkl`, predice la intención y aplica un umbral de confianza de `0.45` para descartar preguntas fuera de tema.
+- **Entrenamiento (`notebooks/entrenamiento_evaluacion.ipynb` y `src/entrenamiento.py`):** Partición estratificada 80/20 (`random_state=42`), `TfidfVectorizer(ngram_range=(1, 2))` ajustado solo en entrenamiento y validación cruzada de 5 pliegues con `Pipeline`.
+- **Interfaz (`app.py`):** Carga `models/vectorizador.pkl` y `models/modelo.pkl`, predice la intención con Top-3 y aplica un umbral calibrado de `0.46` para descartar preguntas fuera de tema.
 
 ## Resultados
 
 | Modelo | Accuracy (Test) | Precision Macro | Recall Macro | F1 Macro (Test) | F1 Macro CV (5-fold) | Errores (Test) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`CalibratedClassifierCV(LinearSVC)`** | **0.9467** | **0.9533** | **0.9467** | **0.9444** | **0.7464 ± 0.0650** | **4 / 75** |
-| `LogisticRegression` | 0.9067 | 0.9176 | 0.9067 | 0.9037 | 0.7301 ± 0.0601 | 7 / 75 |
-| `MultinomialNB` | 0.8400 | 0.8640 | 0.8400 | 0.8349 | 0.7217 ± 0.0507 | 12 / 75 |
+| **`CalibratedClassifierCV(LinearSVC)`** 🏆 | **0.8148** | **0.8359** | **0.8152** | **0.8167** | **0.8124 ± 0.0170** | **30 / 162** |
+| `LogisticRegression` | 0.8148 | 0.8306 | 0.8152 | 0.8157 | 0.8037 ± 0.0235 | 30 / 162 |
+| `MultinomialNB` | 0.7654 | 0.8157 | 0.7667 | 0.7654 | 0.7719 ± 0.0246 | 38 / 162 |
 
 ## Estructura
 
@@ -40,6 +40,8 @@ chatbot-upq/
 ├── notebooks/
 │   └── entrenamiento_evaluacion.ipynb
 ├── reports/
+│   ├── calibracion_ood.png
+│   ├── confusion_matrices_comparativa.png
 │   ├── confusion_matrix_linear_svc_calibrated.png
 │   ├── confusion_matrix_logistic_regression.png
 │   ├── confusion_matrix_multinomial_nb.png
@@ -47,7 +49,9 @@ chatbot-upq/
 ├── src/
 │   ├── __init__.py
 │   ├── entrenamiento.py
-│   └── preprocess.py
+│   ├── preprocess.py
+│   ├── test_app.py
+│   └── validate_corpus.py
 ├── app.py
 ├── requirements.txt
 └── README.md
